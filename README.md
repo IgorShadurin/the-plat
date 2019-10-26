@@ -1,4 +1,4 @@
-# The Play
+# The Plat
 
 ## How to install and run
 
