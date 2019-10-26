@@ -2,10 +2,12 @@
 
 ## How to install and run
 
-Server side: upload web folder to server 
+Server side: upload web folder to server, setup db credentials in config/db.php, run: 
+
+`./yii migrate` 
 
 Client side:
 
-`yarn` && `yarn start` 
+Define server URL in /src/ApiService.js, run:
 
-Define server URL in /src/ApiService.js
+`yarn` && `yarn start` 

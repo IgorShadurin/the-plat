@@ -27,6 +27,7 @@ import '@vkontakte/vkui/dist/vkui.css';
 import Home from './panels/Home';
 import Icon28Newsfeed from '@vkontakte/icons/dist/28/newsfeed';
 import Icon28Search from '@vkontakte/icons/dist/28/search';
+import ApiService from "./services/ApiService";
 
 
 class App extends Component {
@@ -63,6 +64,10 @@ class App extends Component {
         schemeAttribute.value = 'client_dark';
         document.body.attributes.setNamedItem(schemeAttribute);
 
+        ApiService.getPlayers()
+            .then(data => {
+                console.log(data);
+            });
     }
 
 

@@ -1,6 +1,6 @@
 class ApiService {
     constructor() {
-        this.actionServer = 'https://testeron.pro/theplat/';
+        this.actionServer = 'http://r.testeron.pro/theplat/';
         this.userData = window.location.href;
     }
 
