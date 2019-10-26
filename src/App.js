@@ -28,6 +28,7 @@ import Home from './panels/Home';
 import Icon28Newsfeed from '@vkontakte/icons/dist/28/newsfeed';
 import Icon28Search from '@vkontakte/icons/dist/28/search';
 import ApiService from "./services/ApiService";
+import "./App.css";
 
 
 class App extends Component {
@@ -105,6 +106,53 @@ class App extends Component {
                 <View id="feed" activePanel="feed">
                     <Panel id="feed">
                         <PanelHeader>Players</PanelHeader>
+
+                        <div className="conter">
+                            <div className="already_2">
+                                <span className="text-white">Price, $</span>
+                            </div>
+                            <div className="number" align="center">
+
+
+                                <span className="minus"><span className="text-success">-</span></span>
+                                <input className="text" type="text" value="0" size="15"/>
+                                <span className="plus"><span className="text-success">+</span></span>
+                            </div>
+                            <br/>
+                                <div className="already_2">
+                                    <span className="text-white">Count</span>
+                                </div>
+                                <div className="number" align="center">
+                                    <span className="minus"><span className="text-success">-</span></span>
+                                    <input className="text" type="text" value="0" size="15"/>
+                                        <span className="plus"><span className="text-success">+</span></span>
+
+                                </div>
+                                <div className="already_1">
+                                    <span className="text-success">Max <strong>100</strong> Tokens</span>
+                                </div>
+                                <br/>
+                                    <div className="already">
+                                        <span className="text-white">Already issued <span className="text-success">0 Token</span></span>
+                                    </div>
+
+                                    <div className="already">
+
+                                        <span className="text-white">Token name: <span
+                                            className="text-success">/Player_Name/</span></span>
+                                    </div>
+                                    <div className="already">
+                                        <span className="text-white">Ticker: <span className="text-success">/ Based on token name /</span></span>
+                                    </div>
+                                    <div>
+                                        <h1><label>
+                                            <span>  <input className="checkbox" type="checkbox" name="val_1"
+                                                           id="chbox1"/><span className="text-muted">   I Agree with Private Policy</span></span>
+                                        </label></h1></div>
+                                    <button type="button" className="btn btn-block login"><strong>ISSUE</strong>
+                                    </button>
+
+                        </div>
                     </Panel>
                 </View>
 

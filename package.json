@@ -5,7 +5,7 @@
   "main": "index.js",
   "homepage": "./",
   "scripts": {
-    "start": "HTTPS=false cross-env PORT=10888 react-scripts start",
+    "start": "cross-env PORT=10888 react-scripts start",
     "build": "react-scripts build",
     "deploy": "curl -i -XPUT  https://api.selcdn.ru/v1/SEL_87233/theplat/?extract-archive=tar.gz -H \"X-Auth-Token: 9caf141051cb66929e00582aa5c80ae6\" -T \"deploy.tar.gz\"",
     "predeploy": "yarn run build && touch deploy.tar.gz && rm deploy.tar.gz && tar -C ./build -cvzf deploy.tar.gz ."
