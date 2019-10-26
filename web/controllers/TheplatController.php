@@ -2,13 +2,11 @@
 
 namespace app\controllers;
 
-use app\components\MyVK;
-use app\models\ParaUser;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 
-class ParaController extends Controller
+class TheplatController extends Controller
 {
     private $errorText = 'Some error';
     private $currentVkId = null;
