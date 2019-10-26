@@ -1,4 +1,4 @@
-# Liga
+# The Play
 
 ## How to install and run
 
