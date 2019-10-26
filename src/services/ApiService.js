@@ -1,6 +1,15 @@
 class ApiService {
     constructor() {
-        this.actionServer = 'http://r.testeron.pro/theplat/';
+
+        if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+            // dev code
+            //this.actionServer = 'http://r.testeron.pro/theplat/';
+            this.actionServer = 'http://localhost:7777/theplat/';
+        } else {
+            // production code
+            this.actionServer = 'http://r.testeron.pro/theplat/';
+        }
+
         this.userData = window.location.href;
     }
 

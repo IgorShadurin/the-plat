@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Player;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -55,10 +56,12 @@ class TheplatController extends Controller
     {
         $firstName = Yii::$app->request->post('first_name');
         $lastName = Yii::$app->request->post('last_name');
+        $age = Yii::$app->request->post('age');
+        $team = Yii::$app->request->post('team');
         $photo = Yii::$app->request->post('photo');
 
         return [
-            'result' => 'ok',
+            'result' => Player::create($firstName, $lastName, $photo, $age, $team),
         ];
     }
 
@@ -66,36 +69,15 @@ class TheplatController extends Controller
     {
         $id = Yii::$app->request->post('id');
 
-
         return [
-            'result' => [
-                'id' => $id,
-                'first_name' => 'efgerr',
-                'last_name' => 'gerererheh',
-            ],
+            'result' => Player::getPlayer($id),
         ];
     }
 
     public function actionGetPlayers()
     {
         return [
-            'result' => [
-                [
-                    'id' => 1,
-                    'first_name' => 'efgerr',
-                    'last_name' => 'gerererheh',
-                ],
-                [
-                    'id' => 2,
-                    'first_name' => 'efgerr',
-                    'last_name' => 'gerererheh',
-                ],
-                [
-                    'id' => 3,
-                    'first_name' => 'efgerr',
-                    'last_name' => 'gerererheh',
-                ],
-            ],
+            'result' => Player::getPlayers()
         ];
     }
 
