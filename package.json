@@ -1,0 +1,45 @@
+{
+  "name": "vk-para",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "homepage": "./",
+  "scripts": {
+    "start": "HTTPS=true cross-env PORT=10888 react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "curl -i -XPUT  https://api.selcdn.ru/v1/SEL_87233/theplat/?extract-archive=tar.gz -H \"X-Auth-Token: 9caf141051cb66929e00582aa5c80ae6\" -T \"deploy.tar.gz\"",
+    "predeploy": "yarn run build && touch deploy.tar.gz && rm deploy.tar.gz && tar -C ./build -cvzf deploy.tar.gz ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^5.2.1",
+    "react-hot-loader": "^4.12.14",
+    "react-scripts": "^3.2.0"
+  },
+  "dependencies": {
+    "@vkontakte/icons": "^1.10.0",
+    "@vkontakte/vk-connect": "^1.6.5",
+    "@vkontakte/vkui": "^2.30.8",
+    "babel-eslint": "^10.0.3",
+    "chalk": "^2.4.2",
+    "core-js": "^3.2.1",
+    "node-fetch": "^2.6.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
