@@ -16,3 +16,6 @@ package-lock.json
 
 .vscode
 .idea
+/waves/config.js
+/waves/node_modules
+
