@@ -200,7 +200,7 @@ class App extends Component {
                             </FormLayoutGroup>
 
                             <FormLayoutGroup top="Count">
-                                <Checkbox>I Agree with Private Policy</Checkbox>
+                                <Checkbox checked={true}>I Agree with Private Policy</Checkbox>
                             </FormLayoutGroup>
 
 
