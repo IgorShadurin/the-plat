@@ -1,37 +1,34 @@
 import React, {Component} from 'react';
 import connect from '@vkontakte/vk-connect';
 import {
-    View,
-    Panel,
-    PanelHeader,
+    Avatar,
     Button,
-    Div,
+    Cell,
     Epic,
     FormLayout,
     FormLayoutGroup,
+    Group,
     HeaderButton,
-    IS_PLATFORM_ANDROID,
-    IS_PLATFORM_IOS,
-    ModalPage,
-    ModalPageHeader,
-    ModalRoot,
-    Spinner,
+    IOS,
+    Panel,
+    PanelHeader,
+    platform,
     Tabbar,
     TabbarItem,
-    ModalCard,
-    Avatar,
-    SelectMimicry,
-    Radio, Search, Alert, Group, Cell
+    View,
+    ScreenSpinner
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
-import Home from './panels/Home';
 import Icon28Newsfeed from '@vkontakte/icons/dist/28/newsfeed';
 import Icon28Search from '@vkontakte/icons/dist/28/search';
+import Icon28ChevronBack from '@vkontakte/icons/dist/28/chevron_back';
+import Icon24Back from '@vkontakte/icons/dist/24/back';
 import ApiService from "./services/ApiService";
 import "./App.css";
 import Input from "@vkontakte/vkui/dist/components/Input/Input";
 import Checkbox from "@vkontakte/vkui/dist/components/Checkbox/Checkbox";
 
+const osname = platform();
 
 class App extends Component {
     constructor(props) {
@@ -42,7 +39,10 @@ class App extends Component {
             fetchedUser: null,
             popout: null,
             activeStory: 'feed',
-            players: []
+            players: [],
+            memberPanel: 'main',
+            tokenPrice: '0',
+            tokenCount: '0'
         };
 
 
@@ -74,10 +74,7 @@ class App extends Component {
                 this.setState({players: players.result});
             });
 
-        ApiService.issueToken(112, 100, 'HelloMoto')
-            .then(data => {
-                console.log(data);
-            });
+
     }
 
 
@@ -90,7 +87,25 @@ class App extends Component {
         this.setState({activeStory: e.currentTarget.dataset.story})
     };
 
+    openMember = (item) => {
+        console.log(item);
+        this.setState({memberPanel: 'view', currentMember: item});
+    };
+
+    issueToken = () => {
+        this.setState({popout: <ScreenSpinner/>});
+
+        ApiService.issueToken(this.state.tokenPrice, this.state.tokenCount, 'HelloToken')
+            .then(data => {
+                console.log(data);
+            })
+            .then(_ => {
+                this.setState({popout: null});
+            });
+    };
+
     render() {
+        const {currentMember} = this.state;
         return (
             <Epic activeStory={this.state.activeStory} tabbar={
                 <Tabbar>
@@ -112,13 +127,16 @@ class App extends Component {
 
                 </Tabbar>
             }>
-                <View id="feed" activePanel="feed">
-                    <Panel id="feed">
+                <View id="feed" activePanel={this.state.memberPanel} >
+                    <Panel id="main">
                         <PanelHeader>Members</PanelHeader>
 
                         <Group title="Members">
                             {this.state.players.map(item => {
                                 return <Cell
+                                    onClick={_ => {
+                                        this.openMember(item);
+                                    }}
                                     key={item.photo}
                                     description={item.team}
                                     //bottomContent={<Button>Buy</Button>}
@@ -133,67 +151,52 @@ class App extends Component {
                                 </Cell>;
                             })}
                         </Group>
+                    </Panel>
 
-                        {/*<div className="conter">
-                            <div className="already_2">
-                                <span className="text-white">Price, $</span>
-                            </div>
-                            <div className="number" align="center">
+                    <Panel id="view">
+                        <PanelHeader
+                            left={<HeaderButton onClick={() => this.setState({memberPanel: 'main'})}>{osname === IOS ?
+                                <Icon28ChevronBack/> : <Icon24Back/>}</HeaderButton>}
+                            addon={<HeaderButton
+                                onClick={() => this.setState({memberPanel: 'main'})}>Назад</HeaderButton>}
+                        >View Member</PanelHeader>
 
+                        {currentMember && <Group title="Members">
+                            <Cell
 
-                                <span className="minus"><span className="text-success">-</span></span>
-                                <input className="text" type="text" value="0" size="15"/>
-                                <span className="plus"><span className="text-success">+</span></span>
-                            </div>
-                            <br/>
-                            <div className="already_2">
-                                <span className="text-white">Count</span>
-                            </div>
-                            <div className="number" align="center">
-                                <span className="minus"><span className="text-success">-</span></span>
-                                <input className="text" type="text" value="0" size="15"/>
-                                <span className="plus"><span className="text-success">+</span></span>
+                                key={currentMember.photo}
+                                description={currentMember.team}
+                                //bottomContent={<Button>Buy</Button>}
+                                bottomContent={<span className="Member-price">15 $</span>}
+                                before={<Avatar
+                                    className={"Main-photo"}
+                                    src={currentMember.photo}
+                                    size={80}/>}
+                                size="l"
+                            >
+                                {currentMember.first_name} {currentMember.last_name}
+                            </Cell>
 
-                            </div>
-                            <div className="already_1">
-                                <span className="text-success">Max <strong>100</strong> Tokens</span>
-                            </div>
-                            <br/>
-                            <div className="already">
-                                <span className="text-white">Already issued <span
-                                    className="text-success">0 Token</span></span>
-                            </div>
-
-                            <div className="already">
-
-                                        <span className="text-white">Token name: <span
-                                            className="text-success">/Player_Name/</span></span>
-                            </div>
-                            <div className="already">
-                                <span className="text-white">Ticker: <span className="text-success">/ Based on token name /</span></span>
-                            </div>
-                            <div>
-                                <h1><label>
-                                            <span>  <input className="checkbox" type="checkbox" name="val_1"
-                                                           id="chbox1"/><span className="text-muted">   I Agree with Private Policy</span></span>
-                                </label></h1></div>
-                            <button type="button" className="btn btn-block login"><strong>ISSUE</strong>
-                            </button>
-
-                        </div>*/}
+                        </Group>}
                     </Panel>
                 </View>
 
-                <View id="discover" activePanel="discover">
+                <View id="discover" activePanel="discover" popout={this.state.popout}>
                     <Panel id="discover">
                         <PanelHeader>Issue token</PanelHeader>
 
                         <FormLayout>
                             <FormLayoutGroup top="Price">
-                                <Input type="text" defaultValue="0" alignment="center"/>
+                                <Input type="text" placeholder="0" alignment="center" value={this.state.tokenPrice}
+                                       onChange={e => {
+                                           this.setState({tokenPrice: e.target.value});
+                                       }}/>
                             </FormLayoutGroup>
                             <FormLayoutGroup top="Count">
-                                <Input type="text" defaultValue="0" alignment="center"/>
+                                <Input type="text" placeholder="0" alignment="center" value={this.state.tokenCount}
+                                       onChange={e => {
+                                           this.setState({tokenCount: e.target.value});
+                                       }}/>
                             </FormLayoutGroup>
 
                             <FormLayoutGroup top="Count">
@@ -201,7 +204,7 @@ class App extends Component {
                             </FormLayoutGroup>
 
 
-                            <Button size="xl" level="secondary">Issue</Button>
+                            <Button size="xl" level="secondary" onClick={this.issueToken}>Issue</Button>
                         </FormLayout>
                     </Panel>
                 </View>
