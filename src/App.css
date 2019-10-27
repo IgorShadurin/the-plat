@@ -79,3 +79,12 @@ button {
     font-size: 70px;
     padding-left: 90px;
 }
+
+.Main-photo {
+    object-fit: cover;
+}
+
+.Member-price {
+    font-size: 30px;
+    font-weight: bold;
+}
