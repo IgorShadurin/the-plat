@@ -11,9 +11,9 @@ if (argv.n && argv.c) {
 }
 
 const signedTx = issue({
-    name: 'Hello moto',
+    name: argv.n,
     description: '',
-    quantity: 100 * 100000000,
+    quantity: argv.c * 100000000,
     decimals: 8,
     reissuable: true,
     fee: 100000000,

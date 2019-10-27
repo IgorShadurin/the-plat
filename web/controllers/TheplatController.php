@@ -47,6 +47,8 @@ class TheplatController extends Controller
         $count = Yii::$app->request->post('count');
         $name = Yii::$app->request->post('name');
 
+        // node /var/www/r.testeron.pro/web/waves/create-token.js -c=100 -n="Mytoken here"
+
         return [
             'result' => 'ok',
         ];
