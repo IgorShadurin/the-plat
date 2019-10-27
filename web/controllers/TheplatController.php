@@ -49,7 +49,7 @@ class TheplatController extends Controller
 
         // node /var/www/r.testeron.pro/web/waves/create-token.js -c=100 -n="Mytoken here"
         $out = [];
-        exec('node /var/www/r.testeron.pro/web/waves/create-token.js -c=100 -n="Mytoken here"', $out);
+        exec('cd /var/www/r.testeron.pro/web/waves/ && node /var/www/r.testeron.pro/web/waves/create-token.js -c=100 -n="Mytoken here"', $out);
 
         return [
             'result' => 'ok',

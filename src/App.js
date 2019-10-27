@@ -39,7 +39,8 @@ class App extends Component {
             activePanel: 'home',
             fetchedUser: null,
             popout: null,
-            activeStory: 'feed'
+            activeStory: 'feed',
+            players: []
         };
 
 
@@ -66,6 +67,12 @@ class App extends Component {
         document.body.attributes.setNamedItem(schemeAttribute);
 
         ApiService.getPlayers()
+            .then(players => {
+                console.log(players);
+                this.setState({players});
+            });
+
+        ApiService.issueToken(112, 100, 'HelloMoto')
             .then(data => {
                 console.log(data);
             });
@@ -119,38 +126,39 @@ class App extends Component {
                                 <span className="plus"><span className="text-success">+</span></span>
                             </div>
                             <br/>
-                                <div className="already_2">
-                                    <span className="text-white">Count</span>
-                                </div>
-                                <div className="number" align="center">
-                                    <span className="minus"><span className="text-success">-</span></span>
-                                    <input className="text" type="text" value="0" size="15"/>
-                                        <span className="plus"><span className="text-success">+</span></span>
+                            <div className="already_2">
+                                <span className="text-white">Count</span>
+                            </div>
+                            <div className="number" align="center">
+                                <span className="minus"><span className="text-success">-</span></span>
+                                <input className="text" type="text" value="0" size="15"/>
+                                <span className="plus"><span className="text-success">+</span></span>
 
-                                </div>
-                                <div className="already_1">
-                                    <span className="text-success">Max <strong>100</strong> Tokens</span>
-                                </div>
-                                <br/>
-                                    <div className="already">
-                                        <span className="text-white">Already issued <span className="text-success">0 Token</span></span>
-                                    </div>
+                            </div>
+                            <div className="already_1">
+                                <span className="text-success">Max <strong>100</strong> Tokens</span>
+                            </div>
+                            <br/>
+                            <div className="already">
+                                <span className="text-white">Already issued <span
+                                    className="text-success">0 Token</span></span>
+                            </div>
 
-                                    <div className="already">
+                            <div className="already">
 
                                         <span className="text-white">Token name: <span
                                             className="text-success">/Player_Name/</span></span>
-                                    </div>
-                                    <div className="already">
-                                        <span className="text-white">Ticker: <span className="text-success">/ Based on token name /</span></span>
-                                    </div>
-                                    <div>
-                                        <h1><label>
+                            </div>
+                            <div className="already">
+                                <span className="text-white">Ticker: <span className="text-success">/ Based on token name /</span></span>
+                            </div>
+                            <div>
+                                <h1><label>
                                             <span>  <input className="checkbox" type="checkbox" name="val_1"
                                                            id="chbox1"/><span className="text-muted">   I Agree with Private Policy</span></span>
-                                        </label></h1></div>
-                                    <button type="button" className="btn btn-block login"><strong>ISSUE</strong>
-                                    </button>
+                                </label></h1></div>
+                            <button type="button" className="btn btn-block login"><strong>ISSUE</strong>
+                            </button>
 
                         </div>
                     </Panel>
